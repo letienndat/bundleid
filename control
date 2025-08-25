@@ -1,0 +1,8 @@
+Package: com.datlt-2k2.listbundleid
+Name: ListBundleID
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: An awesome application!
+Maintainer: Le Tien Dat
+Author: Le Tien Dat
+Section: Utilities
