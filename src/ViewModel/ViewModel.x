@@ -6,6 +6,7 @@
 
 #import "ViewModel.h"
 #import "../Model/Application.h"
+#import "../Const/AppConst.h"
 
 @interface LSApplicationWorkspace : NSObject
 
@@ -43,7 +44,7 @@ typedef NS_ENUM(NSUInteger, RowType) {
         NSArray<LSApplicationProxy *> *applicationWorkspaces = [[%c(LSApplicationWorkspace) defaultWorkspace] allApplications];
 
         for (LSApplicationProxy *appProxy in applicationWorkspaces) {
-            UIImage *icon = [UIImage imageWithContentsOfFile:@"/Applications/ListBundleID.app/icon-app-placeholder.png"];
+            UIImage *icon = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/icon-app-placeholder.png", AppConst.bundlePath]];
 
             Application *app = [[Application alloc] initWithName:[[NSString alloc] initWithFormat:@"%@", [appProxy localizedNameForContext:nil]]
                                                         bundleID:appProxy.applicationIdentifier

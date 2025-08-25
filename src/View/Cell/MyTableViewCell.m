@@ -6,6 +6,7 @@
 
 #import "MyTableViewCell.h"
 #import "../../Categories/UIColor+Hex.h"
+#import "../../Const/AppConst.h"
 
 @interface MyTableViewCell ()
 
@@ -57,7 +58,7 @@
     [self.contentView addSubview:_descriptionTextView];
     
     _actionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_actionButton setImage:[UIImage imageWithContentsOfFile:@"/Applications/ListBundleID.app/icon-action.png"] forState:UIControlStateNormal];
+    [_actionButton setImage:[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/icon-action.png", AppConst.bundlePath]] forState:UIControlStateNormal];
     _actionButton.tintColor = UIColor.blackColor;
     _actionButton.contentEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     _actionButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -102,7 +103,7 @@
     if (iconApp) {
         [_iconAppImageView setImage:iconApp];
     } else {
-        _iconAppImageView.image = [UIImage imageWithContentsOfFile:@"/Applications/ListBundleID.app/icon-app-placeholder.png"];
+        _iconAppImageView.image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/icon-app-placeholder.png", AppConst.bundlePath]];
     }
     _titleTextView.text = title;
     _descriptionTextView.text = description;
