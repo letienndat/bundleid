@@ -13,4 +13,6 @@ BundleID_FRAMEWORKS = UIKit CoreGraphics Foundation CoreServices
 BundleID_CFLAGS = -fobjc-arc
 BundleID_RESOURCE_DIRS = Resources
 
+THEOS_EXTRA_FRAMEWORKS += AppList
+
 include $(THEOS_MAKE_PATH)/application.mk

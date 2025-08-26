@@ -6,8 +6,11 @@
 
 #import "ViewModel.h"
 #import "../Model/Application.h"
-#import "../Const/AppConst.h"
+#import <AppList/AppList.h>
 
+// MARK: Declares interface
+
+// LSApplicationWorkspace
 @interface LSApplicationWorkspace : NSObject
 
 + (id)defaultWorkspace;
@@ -15,6 +18,7 @@
 
 @end
 
+// LSApplicationProxy
 @interface LSApplicationProxy
 
 @property (readonly, nonatomic) NSString *applicationIdentifier;
@@ -22,8 +26,11 @@
 
 - (id)localizedNameForContext:(id)a0;
 - (id)iconDataForVariant:(int)variant withOptions:(int)options;
+- (id)iconDataForVariant:(int)a0;
 
 @end
+
+// MARK: Implement interface
 
 typedef NS_ENUM(NSUInteger, RowType) {
     rUser = 0,
@@ -43,12 +50,12 @@ typedef NS_ENUM(NSUInteger, RowType) {
         _apps = [NSMutableArray new];
         NSArray<LSApplicationProxy *> *applicationWorkspaces = [[%c(LSApplicationWorkspace) defaultWorkspace] allApplications];
 
-        for (LSApplicationProxy *appProxy in applicationWorkspaces) {
-            UIImage *icon = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/icon-app-placeholder.png", AppConst.bundlePath]];
+        for (LSApplicationProxy *appProxy in applicationWorkspaces) {ALApplicationList *applicationList = [ALApplicationList sharedApplicationList];
+            UIImage *iconApp = [applicationList iconOfSize:ALApplicationIconSizeLarge forDisplayIdentifier:appProxy.applicationIdentifier];
 
             Application *app = [[Application alloc] initWithName:[[NSString alloc] initWithFormat:@"%@", [appProxy localizedNameForContext:nil]]
                                                         bundleID:appProxy.applicationIdentifier
-                                                            icon:icon
+                                                            icon:iconApp
                                                  applicationType:appProxy.applicationType];
             [_apps addObject:app];
         }

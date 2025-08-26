@@ -10,6 +10,7 @@
 
 @interface MyTableViewCell ()
 
+@property (strong, nonatomic) UIView *containerIconAppImageView;
 @property (strong, nonatomic) UIImageView *iconAppImageView;
 @property (strong, nonatomic) UITextView *titleTextView;
 @property (strong, nonatomic) UITextView *descriptionTextView;
@@ -36,10 +37,22 @@
 
 - (void)setupUI {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    _containerIconAppImageView = [UIView new];
+    _containerIconAppImageView.backgroundColor = [UIColor clearColor];
+    _containerIconAppImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _containerIconAppImageView.layer.shadowOpacity = 0.2;
+    _containerIconAppImageView.layer.shadowOffset = CGSizeMake(-3, 3);
+    _containerIconAppImageView.layer.shadowRadius = 3;
+    _containerIconAppImageView.layer.masksToBounds = NO;
+    _containerIconAppImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.contentView addSubview:_containerIconAppImageView];
     
-    _iconAppImageView = [[UIImageView alloc] init];
+    _iconAppImageView = [UIImageView new];
     _iconAppImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView addSubview:_iconAppImageView];
+    _iconAppImageView.layer.masksToBounds = YES;
+    _iconAppImageView.layer.cornerRadius = 10;
+    [_containerIconAppImageView addSubview:_iconAppImageView];
 
     _titleTextView = [UITextView new];
     _titleTextView.scrollEnabled = NO;
@@ -65,15 +78,20 @@
     [_actionButton addTarget:self action:@selector(actionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_actionButton];
     
-    _seperatorLine = [[UIView alloc] init];
+    _seperatorLine = [UIView new];
     _seperatorLine.backgroundColor = [UIColor colorWithHex:0x3c3c43 alpha:0.23];
     _seperatorLine.translatesAutoresizingMaskIntoConstraints = NO;
     [self.contentView addSubview:_seperatorLine];
 
     [NSLayoutConstraint activateConstraints:@[
-        [_iconAppImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
-        [_iconAppImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16],
-        [_iconAppImageView.bottomAnchor constraintLessThanOrEqualToAnchor:_seperatorLine.topAnchor constant:-8],
+        [_containerIconAppImageView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
+        [_containerIconAppImageView.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16],
+        [_containerIconAppImageView.bottomAnchor constraintLessThanOrEqualToAnchor:_seperatorLine.topAnchor constant:-8],
+
+        [_iconAppImageView.topAnchor constraintEqualToAnchor:_containerIconAppImageView.topAnchor],
+        [_iconAppImageView.leadingAnchor constraintEqualToAnchor:_containerIconAppImageView.leadingAnchor],
+        [_iconAppImageView.trailingAnchor constraintEqualToAnchor:_containerIconAppImageView.trailingAnchor],
+        [_iconAppImageView.bottomAnchor constraintEqualToAnchor:_containerIconAppImageView.bottomAnchor],
         [_iconAppImageView.widthAnchor constraintEqualToConstant:50],
         [_iconAppImageView.heightAnchor constraintEqualToConstant:50],
 
@@ -84,7 +102,7 @@
         [_actionButton.heightAnchor constraintEqualToConstant:30],
         
         [_titleTextView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:8],
-        [_titleTextView.leadingAnchor constraintEqualToAnchor:_iconAppImageView.trailingAnchor constant:8],
+        [_titleTextView.leadingAnchor constraintEqualToAnchor:_containerIconAppImageView.trailingAnchor constant:8],
         [_titleTextView.trailingAnchor constraintEqualToAnchor:_actionButton.leadingAnchor constant:-8],
 
         [_descriptionTextView.topAnchor constraintEqualToAnchor:_titleTextView.bottomAnchor constant:8],

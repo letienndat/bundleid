@@ -6,3 +6,4 @@ Description: An awesome application!
 Maintainer: Le Tien Dat
 Author: Le Tien Dat
 Section: Utilities
+Depends: applist
