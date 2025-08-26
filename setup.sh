@@ -28,7 +28,7 @@ fi
 
 # 4. Copy public key to iPhone
 echo "[*] Copying SSH public key to iPhone..."
-ssh-copy-id -i "$KEY_FILE.pub" -p 2222 root@localhost
+ssh-copy-id -i "$KEY_FILE.pub" -p 2222 root@127.0.0.1
 
 # 5. Add block config SSH (if not exist)
 if ! grep -q "Host localhost-iphone" "$CONFIG_FILE" 2>/dev/null; then
@@ -36,7 +36,7 @@ if ! grep -q "Host localhost-iphone" "$CONFIG_FILE" 2>/dev/null; then
     cat <<EOT >> "$CONFIG_FILE"
 
 Host localhost-iphone
-    HostName localhost
+    HostName 127.0.0.1
     Port 2222
     User root
     IdentityFile $KEY_FILE
